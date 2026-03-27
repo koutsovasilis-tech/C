@@ -13,18 +13,23 @@
 #include <assert.h>
 
 
-int jump_search(int arr[], int size, int x)
+int jump_search(int arr[], size_t size, int x)
 {
-    int step = sqrt(size);
-    int prev = 0;
-    int i = 0;
+    if (size == 0) return -1;
+    size_t step = sqrt(size);
+    size_t prev = 0;
+    size_t i = 0;
     while (i < size && arr[i] < x) // jumps till it finds the correct block or it exceeds it 
     {
         prev = i;
         i += step;
+        if (prev >= size)
+        {
+            return -1;
+        }
     }
-    int limit = (i < size) ? i : size - 1; // limit because i might be larger than size 
-    for (int m = prev; m <= limit; m++) // linear search 
+    size_t limit = (i < size) ? i : size - 1; // limit because i might be larger than size 
+    for (size_t m = prev; m <= limit; m++) // linear search 
     {
         if (arr[m] == x)
         {
